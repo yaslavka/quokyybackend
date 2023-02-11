@@ -20,4 +20,5 @@ const User = sequelize.define(
         rolleKorer: {type: DataTypes.INTEGER, defaultValue: 0},
     },
 );
+
 module.exports = {User}
