@@ -12,7 +12,7 @@ const multer = require("multer");
 const UserController = require('./src/controllers/UserControllers/index')
 const https = require("https");
 const privateKey = fs.readFileSync(
-  "/etc/letsencrypt/live/6551eb3.online-server.cloud/fullchain.pem",
+  "/etc/letsencrypt/live/6551eb3.online-server.cloud/privkey.pem",
   "utf8"
 );
 const certificate = fs.readFileSync(
