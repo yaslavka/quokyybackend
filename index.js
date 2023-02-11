@@ -42,6 +42,7 @@ app.post('/api/user/login', UserController.login)
 //app.post('/api/user/location', UserController.location)
 app.get('/api/user', UserController.user)
 app.post('/api/user/zakaz', ZakazController.sozdatZakazy)
+app.use('/api/user/zakazy', ZakazController.myZakaz)
 const storage = multer.diskStorage({
     destination(req, file, callback) {
         callback(null, './files/images');
