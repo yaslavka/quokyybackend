@@ -14,8 +14,6 @@ const Zakaz = sequelize.define("order", {
     longitudes:{type: DataTypes.DECIMAL(61, 15), defaultValue: 0.000000000000000, allowNull: false},
     addresss: {type: DataTypes.STRING, allowNull: false},
     streets: {type: DataTypes.STRING, allowNull: false},
-    //что забераем
-    name:{type: DataTypes.STRING, allowNull: false},
     //Вес
     ves: {type: DataTypes.INTEGER(61, 3), defaultValue: 0.000, allowNull: false},
     //Тип доставки
