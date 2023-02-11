@@ -60,5 +60,8 @@ class ZakazController {
             return next(ApiError.internal("Нет данных"));
         }
     }
+    async mapZakaz(req, res, next){
+        console.log(req.query)
+    }
 }
 module.exports = new ZakazController();

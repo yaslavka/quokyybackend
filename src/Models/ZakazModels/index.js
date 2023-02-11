@@ -15,7 +15,7 @@ const Zakaz = sequelize.define("order", {
     addresss: {type: DataTypes.STRING, allowNull: false},
     streets: {type: DataTypes.STRING, allowNull: false},
     //Вес
-    ves: {type: DataTypes.INTEGER(61, 3), defaultValue: 0.000, allowNull: false},
+    ves: {type: DataTypes.DECIMAL(61, 3), defaultValue: 0.000, allowNull: false},
     //Тип доставки
     namesgruz:{type: DataTypes.STRING, allowNull: false},
     typedostav: {type: DataTypes.STRING, defaultValue: null},
@@ -23,9 +23,9 @@ const Zakaz = sequelize.define("order", {
     poruchenie:{type: DataTypes.STRING, defaultValue: null},
     datetime:{type: DataTypes.DATE, allowNull: false},
     phone: {type: DataTypes.STRING, defaultValue: null},
-    strahovka:  {type: DataTypes.INTEGER(61, 2), defaultValue: 0.00, allowNull: false},
-    cennost:  {type: DataTypes.INTEGER(61, 2), defaultValue: 0.00, allowNull: false},
-    summ:  {type: DataTypes.INTEGER(61, 2), defaultValue: 0.00, allowNull: false},
+    strahovka:  {type: DataTypes.DECIMAL(61, 2), defaultValue: 0.00, allowNull: false},
+    cennost:  {type: DataTypes.DECIMAL(61, 2), defaultValue: 0.00, allowNull: false},
+    summ:  {type: DataTypes.DECIMAL(61, 2), defaultValue: 0.00, allowNull: false},
     userId: {type: DataTypes.BIGINT, allowNull: false},
 
 })
