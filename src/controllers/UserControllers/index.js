@@ -1,6 +1,6 @@
 const ApiError = require("../../error/ApiError");
 const bcrypt = require("bcrypt");
-const {User, Kurer} = require('../../Models/UserModels/index')
+const {User} = require('../../Models/UserModels/index')
 const jwt = require("jsonwebtoken");
 const decode='random_key'
 const generateJwt = (id, email, first_name, last_name, phone) => {
@@ -70,7 +70,6 @@ class UserController {
             }
             return res.json(user);
         }catch (error) {
-            console.log(error);
             return next(ApiError.internal(error));
         }
 
@@ -91,31 +90,31 @@ class UserController {
         await User.update(update, { where: { id: user.id } });
         return res.json("Аватар успешно загружен");
     }
-    async location(req, res) {
-        console.log(req.body)
-        const { authorization } = req.headers;
-        if(!authorization){
-            return res.json('Ненайден айди пользователя');
-        }
-        const token = authorization.slice(7);
-        const decodeToken = jwt.decode(token);
-        const user = await User.findOne({
-            where: { email: decodeToken.email },
-        });
-        if(!user){
-            return res.json({message: 'Вы не авторизованы'});
-        }
-        if (user.rolleKorer === 1){
-            let user = await Kurer.findOne({ where: { email: decodeToken.email } });
-            const { latitude, longitude }= req.body
-            let update = {latitude:latitude, longitude:longitude}
-            await Kurer.update(update,{where:{id:user.id}})
-        }
-        const { latitude, longitude }= req.body
-        let update = {latitude:latitude, longitude:longitude}
-        await User.update(update,{where:{id:user.id}})
-
-    }
+    // async location(req, res) {
+    //     console.log(req.body)
+    //     const { authorization } = req.headers;
+    //     if(!authorization){
+    //         return res.json('Ненайден айди пользователя');
+    //     }
+    //     const token = authorization.slice(7);
+    //     const decodeToken = jwt.decode(token);
+    //     const user = await User.findOne({
+    //         where: { email: decodeToken.email },
+    //     });
+    //     if(!user){
+    //         return res.json({message: 'Вы не авторизованы'});
+    //     }
+    //     if (user.rolleKorer === 1){
+    //         let user = await Kurer.findOne({ where: { email: decodeToken.email } });
+    //         const { latitude, longitude }= req.body
+    //         let update = {latitude:latitude, longitude:longitude}
+    //         await Kurer.update(update,{where:{id:user.id}})
+    //     }
+    //     const { latitude, longitude }= req.body
+    //     let update = {latitude:latitude, longitude:longitude}
+    //     await User.update(update,{where:{id:user.id}})
+    //
+    // }
 
 }
 module.exports = new UserController();

@@ -16,6 +16,8 @@ const User = sequelize.define(
         first_lines: {type: DataTypes.INTEGER, defaultValue: 0},
         income: {type: DataTypes.INTEGER, defaultValue: 0},
         description: {type: DataTypes.STRING, defaultValue: null},
+            latitude:{type: DataTypes.DECIMAL(61, 6), defaultValue: 0.000000, allowNull: false},
+            longitude:{type: DataTypes.DECIMAL(61, 6), defaultValue: 0.000000, allowNull: false},
         rolleadmin: {type: DataTypes.INTEGER, defaultValue: 0},
         rolleKorer: {type: DataTypes.INTEGER, defaultValue: 0},
     },

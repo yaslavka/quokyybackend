@@ -10,6 +10,7 @@ const path = require("path");
 const bodyParser = require('body-parser');
 const multer = require("multer");
 const UserController = require('./src/controllers/UserControllers/index')
+const ZakazController = require('./src/controllers/ZakazController/index')
 const https = require("https");
 const privateKey = fs.readFileSync(
   "/etc/letsencrypt/live/6551eb3.online-server.cloud/privkey.pem",
@@ -38,8 +39,9 @@ app.use(bodyParser.json());
 app.use("/api/user/avatar", express.static(path.resolve(__dirname, "files", "images")));
 app.post('/api/user/registration', UserController.registration)
 app.post('/api/user/login', UserController.login)
-app.post('/api/user/location', UserController.location)
+//app.post('/api/user/location', UserController.location)
 app.get('/api/user', UserController.user)
+app.get('/api/user/zakaz', ZakazController.sozdatZakazy)
 const storage = multer.diskStorage({
     destination(req, file, callback) {
         callback(null, './files/images');
