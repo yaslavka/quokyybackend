@@ -5,11 +5,15 @@ const {DataTypes} = require("sequelize");
 const Zakaz = sequelize.define("order", {
     id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: 11},
     //куда отвезти
-    latitude:{type: DataTypes.DECIMAL(61, 6), defaultValue: 0.000000, allowNull: false},
-    longitude:{type: DataTypes.DECIMAL(61, 6), defaultValue: 0.000000, allowNull: false},
+    latitude:{type: DataTypes.DECIMAL(61, 15), defaultValue: 0.000000000000000, allowNull: false},
+    longitude:{type: DataTypes.DECIMAL(61, 15), defaultValue: 0.000000000000000, allowNull: false},
+    address: {type: DataTypes.STRING, allowNull: false},
+    street: {type: DataTypes.STRING, allowNull: false},
     //откуда забрать
-    latitudes:{type: DataTypes.DECIMAL(61, 6), defaultValue: 0.000000, allowNull: false},
-    longitudes:{type: DataTypes.DECIMAL(61, 6), defaultValue: 0.000000, allowNull: false},
+    latitudes:{type: DataTypes.DECIMAL(61, 15), defaultValue: 0.000000000000000, allowNull: false},
+    longitudes:{type: DataTypes.DECIMAL(61, 15), defaultValue: 0.000000000000000, allowNull: false},
+    addresss: {type: DataTypes.STRING, allowNull: false},
+    streets: {type: DataTypes.STRING, allowNull: false},
     //что забераем
     name:{type: DataTypes.STRING, allowNull: false},
     //Вес

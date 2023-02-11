@@ -13,8 +13,31 @@ class ZakazController {
         }
         const token = authorization.slice(7);
         try {
+            const { email } = jwt.decode(token);
+            let user = await User.findOne({ where: { email } });
+            if (!user) {
+                return next(ApiError.internal("Такой пользователь не найден"));
+            }
             await Zakaz.create({
-
+                latitude: distance.latitude,
+                longitude: distance.longitude,
+                addresss: distance.address,
+                streets: distance.name,
+                latitudes: origin.latitude,
+                longitudes: origin.longitude,
+                address: origin.address,
+                street: origin.name,
+                nameuser: names,
+                phone: phone,
+                datetime: dtae,
+                poruchenie: comments,
+                summ: cena,
+                cennost: cennost,
+                strahovka: strahovka,
+                namesgruz: namesp,
+                ves: ves,
+                typedostav: type,
+                userId: user.id
             })
         }catch (error){
             return next(ApiError.internal(error));
