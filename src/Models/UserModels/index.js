@@ -4,27 +4,6 @@ const {DataTypes} = require("sequelize");
 const User = sequelize.define(
     "user",
     {
-            id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: 11},
-            first_name: {type: DataTypes.STRING, allowNull: false},
-            last_name: {type: DataTypes.STRING, allowNull: false},
-            phone: {type: DataTypes.STRING, allowNull: false},
-            email: {type: DataTypes.STRING, allowNull: false},
-            password: {type: DataTypes.STRING, allowNull: false},
-            avatar: {type: DataTypes.STRING, defaultValue: null},
-            balance: {type: DataTypes.INTEGER(61, 2), defaultValue: 0.00, allowNull: false},
-            finance_password: {type: DataTypes.STRING, defaultValue: null},
-            first_lines: {type: DataTypes.INTEGER, defaultValue: 0},
-            income: {type: DataTypes.INTEGER, defaultValue: 0},
-            description: {type: DataTypes.STRING, defaultValue: null},
-            rolleadmin: {type: DataTypes.INTEGER, defaultValue: 0},
-            rolleKorer: {type: DataTypes.INTEGER, defaultValue: 0},
-        latitude:{type: DataTypes.STRING, defaultValue: 0},
-        longitude:{type: DataTypes.INTEGER, defaultValue: 0}
-    },
-);
-const Kurer = sequelize.define(
-    "kurer",
-    {
         id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: 11},
         first_name: {type: DataTypes.STRING, allowNull: false},
         last_name: {type: DataTypes.STRING, allowNull: false},
@@ -37,11 +16,8 @@ const Kurer = sequelize.define(
         first_lines: {type: DataTypes.INTEGER, defaultValue: 0},
         income: {type: DataTypes.INTEGER, defaultValue: 0},
         description: {type: DataTypes.STRING, defaultValue: null},
-        userId: {type: DataTypes.BIGINT, allowNull: false},
-        latitude:{type: DataTypes.STRING, defaultValue: 0},
-        longitude:{type: DataTypes.STRING, defaultValue: 0}
+        rolleadmin: {type: DataTypes.INTEGER, defaultValue: 0},
+        rolleKorer: {type: DataTypes.INTEGER, defaultValue: 0},
     },
 );
-User.hasMany(Kurer, {as: "kurer"});
-Kurer.belongsTo(User, {as: 'user'});
-module.exports = {User, Kurer}
+module.exports = {User}
