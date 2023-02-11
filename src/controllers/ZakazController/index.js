@@ -3,6 +3,8 @@ const {User} = require('../../Models/UserModels/index')
 const {Zakaz} = require('../../Models/ZakazModels/index')
 const jwt = require("jsonwebtoken");
 
+
+
 class ZakazController {
     async sozdatZakazy(req, res, next){
         const { authorization } = req.headers;
@@ -61,7 +63,24 @@ class ZakazController {
         }
     }
     async mapZakaz(req, res, next){
-        console.log(req.query)
+        const {zakaz} = req.query
+        let user = await Zakaz.findOne({ where: { id:zakaz } });
+        if (!user) {
+            return next(ApiError.internal("Заказ найден"));
+        }
+        const map = await User.findOne({where: {id: user.userId}})
+        let result = {
+            id: zakaz,
+            avatar: map.avatar,
+            first_name: map.first_name,
+            //откуда забрать
+            latitudes: user.latitudes,
+            longitudes: user.longitudes,
+            //куда доставить
+            latitude: user.latitude,
+            longitude: user.longitude,
+        }
+        return res.json({items: result})
     }
 }
 module.exports = new ZakazController();
