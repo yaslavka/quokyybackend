@@ -8,7 +8,7 @@ const generateJwt = (id, email, first_name, last_name, phone) => {
 };
 class UserController {
     async registration(req, res, next){
-        const {email, first_name, last_name, password, phone} = req.body;
+        const {email, first_name, last_name, password, phone,  longitude, latitude,} = req.body;
         if (!email || !password || !last_name || !first_name || !phone) {
             return next(ApiError.badRequest("Не все поля заполнены"));
         }
@@ -26,6 +26,8 @@ class UserController {
             last_name,
             phone,
             email,
+            longitude: longitude,
+            latitude: latitude,
             password: hashPassword,
         });
         const access_token = generateJwt(
