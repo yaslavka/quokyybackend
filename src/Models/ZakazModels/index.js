@@ -33,3 +33,4 @@ const Zakaz = sequelize.define("order", {
 })
 User.hasMany(Zakaz, {as: "order"});
 Zakaz.belongsTo(User, {as: 'user'});
+module.exports = {Zakaz}
