@@ -1,20 +1,21 @@
 const ApiError = require("../../error/ApiError");
 const bcrypt = require("bcrypt");
-const {User} = require('../../Models/UserModels/index')
+const {Kur} = require('../../Models/KurModel/index')
 const jwt = require("jsonwebtoken");
+const {KurerDocuments} = require("../../Models/KererDockumentsModels");
 const decode='random_key'
 const generateJwt = (id, email, first_name, last_name, phone) => {
     return jwt.sign({id:id, email: email, first_name: first_name, last_name: last_name, phone:phone },decode);
 };
-class UserController {
+
+class KurerKontroller {
     async registration(req, res, next){
-        console.log(req.body)
         const {email, first_name, last_name, password, phone,  longitude, latitude,} = req.body;
         if (!email || !password || !last_name || !first_name || !phone) {
             return next(ApiError.badRequest("Не все поля заполнены"));
         }
-        const candidateEmail = await User.findOne({ where: { email } })
-        const candidatephone = await User.findOne({ where: { phone } })
+        const candidateEmail = await Kur.findOne({ where: { email } })
+        const candidatephone = await Kur.findOne({ where: { phone } })
         if (candidateEmail) {
             return next(ApiError.badRequest("Такой email уже существует"));
         }
@@ -22,7 +23,7 @@ class UserController {
             return next(ApiError.badRequest("Такой телефон уже существует"));
         }
         const hashPassword = await bcrypt.hash(password, 5);
-        const users = await User.create({
+        const users = await Kur.create({
             first_name,
             last_name,
             phone,
@@ -42,7 +43,7 @@ class UserController {
     }
     async login(req, res, next){
         const { email, password } = req.body;
-        const user = await User.findOne({ where: { email } });
+        const user = await Kur.findOne({ where: { email } });
         if (!user) {
             return next(ApiError.internal("Не верный Email"));
         }
@@ -67,10 +68,13 @@ class UserController {
         const token = authorization.slice(7);
         try {
             const { email } = jwt.decode(token);
-            let user = await User.findOne({ where: { email } });
+            let user = await Kur.findOne({ where: { email } });
+            let document = await KurerDocuments.findOne({where:{kurId: user.id}})
             if (!user) {
                 return next(ApiError.internal("Такой пользователь не найден"));
             }
+
+            user.dataValues.documents = document
             return res.json(user);
         }catch (error) {
             return next(ApiError.internal(error));
@@ -85,14 +89,13 @@ class UserController {
         }
         const token = authorization.slice(7);
         const decodeToken = jwt.decode(token);
-        const user = await User.findOne({
+        const user = await Kur.findOne({
             where: { email: decodeToken.email },
         });
         let fileName = req.files[0].filename;
         let update = { avatar: fileName };
-        await User.update(update, { where: { id: user.id } });
+        await Kur.update(update, { where: { id: user.id } });
         return res.json("Аватар успешно загружен");
     }
-
 }
-module.exports = new UserController();
+module.exports = new KurerKontroller();

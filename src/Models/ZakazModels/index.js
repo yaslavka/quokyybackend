@@ -26,6 +26,12 @@ const Zakaz = sequelize.define("order", {
     strahovka:  {type: DataTypes.DECIMAL(61, 2), defaultValue: 0.00, allowNull: false},
     cennost:  {type: DataTypes.DECIMAL(61, 2), defaultValue: 0.00, allowNull: false},
     summ:  {type: DataTypes.DECIMAL(61, 2), defaultValue: 0.00, allowNull: false},
+    //поиск куръера
+    status1:{type: DataTypes.BOOLEAN, defaultValue: false},
+    //в работе
+    status2:{type: DataTypes.BOOLEAN, defaultValue: false},
+    //выполнен
+    status3:{type: DataTypes.BOOLEAN, defaultValue: false},
     userId: {type: DataTypes.BIGINT, allowNull: false},
 
 })

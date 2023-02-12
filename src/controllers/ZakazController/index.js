@@ -2,6 +2,7 @@ const ApiError = require("../../error/ApiError");
 const {User} = require('../../Models/UserModels/index')
 const {Zakaz} = require('../../Models/ZakazModels/index')
 const jwt = require("jsonwebtoken");
+const {Kur} = require("../../Models/KurModel");
 
 
 
@@ -69,19 +70,51 @@ class ZakazController {
         if (!user) {
             return next(ApiError.internal("Заказ найден"));
         }
+        const kurr = await Kur.findOne({where:{zakazId: zakaz}})
         const map = await User.findOne({where: {id: user.userId}})
         let result = {
             id: zakaz,
             avatar: map.avatar,
             first_name: map.first_name,
+            //Расстояние между заказом и курьером
+            latitudess: kurr.latitude,
+            longitudess: kurr.longitude,
             //откуда забрать
             latitudes: user.latitudes,
             longitudes: user.longitudes,
             //куда доставить
             latitude: user.latitude,
             longitude: user.longitude,
+            //поиск куръера
+            status1:user.status1,
+            //в работе
+            status2:user.status2,
+            //выполнен
+            status3:user.status3,
+            poruchenie: user.poruchenie
         }
         return res.json({items: result})
     }
+    // обновление координат
+    async mapKurKoordinates(req, res){
+        const {status2,latitude,longitude, zakaz}= req.body
+        const userzakaz = await Zakaz.findOne({where:{id:zakaz}})
+        switch (status2){
+            case 0:
+                if (userzakaz.status2 === 0){
+                    return res.json(true)
+                }
+                break;
+            case 2:
+                if (userzakaz.status2 === 1){
+                    let update = {latitude:latitude, longitude:longitude}
+                    await Zakaz.update(update, {where:{id:userzakaz.id}})
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
 }
 module.exports = new ZakazController();

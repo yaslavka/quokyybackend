@@ -10,6 +10,7 @@ const path = require("path");
 const bodyParser = require('body-parser');
 const multer = require("multer");
 const UserController = require('./src/controllers/UserControllers/index')
+const KurerKontroller = require('./src/controllers/KurerKontroller/index')
 const ZakazController = require('./src/controllers/ZakazController/index')
 const https = require("https");
 const privateKey = fs.readFileSync(
@@ -39,11 +40,16 @@ app.use(bodyParser.json());
 app.get("/api/user/avatar", express.static(path.resolve(__dirname, "files", "images")));
 app.post('/api/user/registration', UserController.registration)
 app.post('/api/user/login', UserController.login)
-//app.post('/api/user/location', UserController.location)
 app.get('/api/user', UserController.user)
 app.post('/api/user/zakaz', ZakazController.sozdatZakazy)
 app.get('/api/user/zakazy', ZakazController.myZakaz)
 app.get('/api/user/myzakaz', ZakazController.mapZakaz)
+
+//куръер
+app.get("/api/kur/avatar", express.static(path.resolve(__dirname, "files", "images")));
+app.post('/api/kur/registration', KurerKontroller.registration)
+app.post('/api/kur/login', KurerKontroller.login)
+app.get('/api/kur', KurerKontroller.user)
 const storage = multer.diskStorage({
     destination(req, file, callback) {
         callback(null, './files/images');
@@ -54,6 +60,16 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 app.post('/api/user/avatars',upload.array('avatar'), UserController.avatar)
+app.post('/api/kur/avatars',upload.array('avatar'), KurerKontroller.avatar)
+// const storages = multer.diskStorage({
+//     destination(req, file, callback) {
+//         callback(null, './files/documents');
+//     },
+//     filename(req, file, callback) {
+//         callback(null, `${file.fieldname}_${Date.now()}_${file.originalname}`);
+//     },
+// });
+// const uploada = multer({ storages });
 const start = async () => {
     try {
         await sequelize.authenticate();
