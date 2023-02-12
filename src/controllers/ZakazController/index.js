@@ -95,7 +95,7 @@ class ZakazController {
             status2:user.status2,
             //выполнен
             status3:user.status3,
-            poruchenie: user.poruchenie
+            streets: user.streets
         }
         return res.json({items: result})
     }
