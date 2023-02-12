@@ -80,7 +80,7 @@ class ZakazController {
             latitude: user.latitude,
             longitude: user.longitude,
         }
-        return res.json({items: result})
+        return res.json(result)
     }
 }
 module.exports = new ZakazController();
