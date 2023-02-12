@@ -36,14 +36,14 @@ const server = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 app.use(express.json());
 app.use(bodyParser.json());
-app.use("/api/user/avatar", express.static(path.resolve(__dirname, "files", "images")));
+app.get("/api/user/avatar", express.static(path.resolve(__dirname, "files", "images")));
 app.post('/api/user/registration', UserController.registration)
 app.post('/api/user/login', UserController.login)
 //app.post('/api/user/location', UserController.location)
 app.get('/api/user', UserController.user)
 app.post('/api/user/zakaz', ZakazController.sozdatZakazy)
-app.use('/api/user/zakazy', ZakazController.myZakaz)
-app.post('/api/user/myzakaz', ZakazController.mapZakaz)
+app.get('/api/user/zakazy', ZakazController.myZakaz)
+app.get('/api/user/myzakaz', ZakazController.mapZakaz)
 const storage = multer.diskStorage({
     destination(req, file, callback) {
         callback(null, './files/images');

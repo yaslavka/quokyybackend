@@ -64,6 +64,7 @@ class ZakazController {
     }
     async mapZakaz(req, res, next){
         const {zakaz} = req.query
+        console.log(req.query)
         let user = await Zakaz.findOne({ where: { id:zakaz } });
         if (!user) {
             return next(ApiError.internal("Заказ найден"));
@@ -80,7 +81,7 @@ class ZakazController {
             latitude: user.latitude,
             longitude: user.longitude,
         }
-        return res.json(result)
+        return res.json({items: result})
     }
 }
 module.exports = new ZakazController();
