@@ -50,6 +50,7 @@ app.get("/api/kur/avatar", express.static(path.resolve(__dirname, "files", "imag
 app.post('/api/kur/registration', KurerKontroller.registration)
 app.post('/api/kur/login', KurerKontroller.login)
 app.get('/api/kur', KurerKontroller.user)
+app.get('/api/kur/locationupdate', ZakazController.mapKurKoordinates)
 const storage = multer.diskStorage({
     destination(req, file, callback) {
         callback(null, './files/images');

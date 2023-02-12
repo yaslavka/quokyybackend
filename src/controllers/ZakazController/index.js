@@ -74,8 +74,12 @@ class ZakazController {
         const map = await User.findOne({where: {id: user.userId}})
         let result = {
             id: zakaz,
+            //аватар и имя заказчика
             avatar: map.avatar,
             first_name: map.first_name,
+            //аватар и имя куръера
+            avatars: kurr.avatar,
+            first_names: kurr.first_name,
             //Расстояние между заказом и курьером
             latitudess: kurr.latitude,
             longitudess: kurr.longitude,
