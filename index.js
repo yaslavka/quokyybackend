@@ -64,18 +64,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 app.post('/api/user/avatars',upload.array('avatar'), UserController.avatar)
 app.post('/api/kur/avatars',upload.array('avatar'), KurerKontroller.avatar)
-const storages = multer.diskStorage({
-    destination(req, file, callback) {
-        callback(null, './files/documents');
-    },
-    filename(req, file, callback) {
-        callback(null, `${file.fieldname}_${Date.now()}_${file.originalname}`);
-    },
-});
-const uploada = multer({ storages });
-app.post('/api/kur/passportrazvorot',uploada.array('passportr'), KurerKontroller.passportrazvorot)
-app.post('/api/kur/passportpropiska',uploada.array('passportp'), KurerKontroller.passportpropiska)
-app.post('/api/kur/passportselfi',uploada.array('passports'), KurerKontroller.passportselfi)
+app.post('/api/kur/passportrazvorot',upload.array('passportr'), KurerKontroller.passportrazvorot)
+app.post('/api/kur/passportpropiska',upload.array('passportp'), KurerKontroller.passportpropiska)
+app.post('/api/kur/passportselfi',upload.array('passports'), KurerKontroller.passportselfi)
 const start = async () => {
     try {
         await sequelize.authenticate();
