@@ -73,7 +73,7 @@ class ZakazController {
         const { email } = jwt.decode(token);
         let kurr = await Kur.findOne({where: {email}})
         if (kurr){
-            const zakaz = await Zakaz.findOne({where:{id: kurr.zakazId}})
+            const zakaz = await Zakaz.findOne({where:{id: kurr.orderId}})
             console.log('смотри тут заказ',zakaz)
         }else {
             return next(ApiError.internal("Нет данных"));

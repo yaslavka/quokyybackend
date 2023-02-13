@@ -18,7 +18,7 @@ const Kur = sequelize.define(
         description: {type: DataTypes.STRING, defaultValue: null},
         latitude:{type: DataTypes.DECIMAL(61, 15), defaultValue: 0.000000000000000, allowNull: false},
         longitude:{type: DataTypes.DECIMAL(61, 15), defaultValue: 0.000000000000000, allowNull: false},
-        zakazId: {type: DataTypes.BIGINT, allowNull: true},
+        orderId: {type: DataTypes.BIGINT, allowNull: true},
     },
 );
 Zakaz.hasMany(Kur, {as: "kerer"});
