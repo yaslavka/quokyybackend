@@ -47,7 +47,7 @@ app.get('/api/user/myzakaz', ZakazController.mapZakaz)
 
 //куръер
 app.get("/api/kur/avatar", express.static(path.resolve(__dirname, "files", "images")));
-app.get("/api/kur/document", express.static(path.resolve(__dirname, "files", "documents")));
+app.get("/api/kur/document", express.static(path.resolve(__dirname, "files", "images")));
 app.post('/api/kur/registration', KurerKontroller.registration)
 app.post('/api/kur/login', KurerKontroller.login)
 app.get('/api/kur', KurerKontroller.user)
