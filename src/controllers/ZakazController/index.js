@@ -83,6 +83,7 @@ class ZakazController {
             //Расстояние между заказом и курьером
             latitudess: kurr.latitude,
             longitudess: kurr.longitude,
+
             //откуда забрать
             latitudes: user.latitudes,
             longitudes: user.longitudes,
