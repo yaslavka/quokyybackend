@@ -48,6 +48,10 @@ app.get('/api/user/myzakaz', ZakazController.mapZakaz)
 //куръер
 app.use("/api/kur/avatar", express.static(path.resolve(__dirname, "files", "images")));
 app.use("/api/kur/document", express.static(path.resolve(__dirname, "files", "images")));
+//Заказы на исполнении
+app.get('/api/kur/zakazy', ZakazController.kurZakaz)
+//все заказы
+app.get('/api/kur/allzakaz', ZakazController.allZakaz)
 app.post('/api/kur/registration', KurerKontroller.registration)
 app.post('/api/kur/login', KurerKontroller.login)
 app.get('/api/kur', KurerKontroller.user)

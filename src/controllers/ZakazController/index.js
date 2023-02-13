@@ -63,6 +63,28 @@ class ZakazController {
             return next(ApiError.internal("Нет данных"));
         }
     }
+
+    async kurZakaz (req, res, next){
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json({message: 'Вы не авторизованы'});
+        }
+        const token = authorization.slice(7);
+        const { email } = jwt.decode(token);
+        let kurr = await Kur.findOne({where: {email}})
+        if (kurr){
+            const zakaz = await Zakaz.findAll({where:{id: kurr.zakazId}})
+            return res.json(zakaz)
+        }else if (kurr) {
+            return next(ApiError.internal("Нет данных"));
+        }
+    }
+
+    async allZakaz (req, res){
+        const zakaz = await Zakaz.findAll()
+        return res.json(zakaz)
+    }
+
     async mapZakaz(req, res, next){
         const {zakaz} = req.query
         console.log(req.query)
