@@ -75,7 +75,6 @@ class ZakazController {
         if (kurr){
             const zakaz = await Zakaz.findOne({where:{id: kurr.zakazId}})
             console.log(zakaz)
-            return res.json(zakaz)
         }else {
             return next(ApiError.internal("Нет данных"));
         }
