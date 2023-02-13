@@ -63,7 +63,7 @@ class ZakazController {
             return next(ApiError.internal("Нет данных"));
         }
     }
-
+    //заказ на исполнении
     async kurZakaz (req, res, next){
         const { authorization } = req.headers;
         if(!authorization){
@@ -74,8 +74,34 @@ class ZakazController {
         let kurr = await Kur.findOne({where: {email}})
         if (kurr){
             const zakaz = await Zakaz.findOne({where:{id: kurr.orderId}})
-            console.log('смотри тут заказ',zakaz)
-            return res.json({items:{id:zakaz.id, }})
+            return res.json({
+                items: {
+                    id:zakaz.id,
+                    //Куда доставить
+                    latitude:zakaz.latitude,
+                    longitude:zakaz.longitude,
+                    address:zakaz.address,
+                    street:zakaz.street,
+                    //откуда забрать
+                    latitudes:zakaz.latitudes,
+                    longitudes:zakaz.longitudes,
+                    addresss:zakaz.addresss,
+                    streets:zakaz.streets,
+                    ves:zakaz.ves,
+                    namesgruz:zakaz.namesgruz,
+                    typedostav:zakaz.typedostav,
+                    nameuser:zakaz.nameuser,
+                    poruchenie:zakaz.poruchenie,
+                    datetime:zakaz.datetime,
+                    phone:zakaz.phone,
+                    strahovka:zakaz.strahovka,
+                    cennost:zakaz.cennost,
+                    summ:zakaz.summ,
+                    status1:zakaz.status1,
+                    status2:zakaz.status2,
+                    status3:zakaz.status3
+
+                }})
         }else {
             return next(ApiError.internal("Нет данных"));
         }
