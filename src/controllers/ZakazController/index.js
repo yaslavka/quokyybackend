@@ -74,7 +74,7 @@ class ZakazController {
         let kurr = await Kur.findOne({where: {email}})
         if (kurr){
             const zakaz = await Zakaz.findOne({where:{id: kurr.zakazId}})
-            console.log(zakaz)
+            console.log('смотри тут заказ',zakaz)
         }else {
             return next(ApiError.internal("Нет данных"));
         }
