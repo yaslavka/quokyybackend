@@ -97,5 +97,101 @@ class KurerKontroller {
         await Kur.update(update, { where: { id: user.id } });
         return res.json("Аватар успешно загружен");
     }
+    async passportrazvorot(req, res) {
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json({message: 'Ненайден айди пользователя'});
+        }
+        const token = authorization.slice(7);
+        const decodeToken = jwt.decode(token);
+        const user = await Kur.findOne({
+            where: { email: decodeToken.email },
+        });
+        let fileName = req.files[0].filename;
+        let checkCurer = await KurerDocuments.findOne({where:{kurId: user.id}})
+        if (!checkCurer){
+            await KurerDocuments.create({
+                passportRszvorot: fileName,
+                kurId: user.id,
+                kererId: user.id
+            })
+        } else {
+            let update = { passportRszvorot: fileName };
+            await KurerDocuments.update(update, { where: { kurId: user.id } });
+        }
+        return res.json({message: "Аватар успешно загружен"});
+    }
+    async passportpropiska(req, res) {
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json({message: 'Ненайден айди пользователя'});
+        }
+        const token = authorization.slice(7);
+        const decodeToken = jwt.decode(token);
+        const user = await Kur.findOne({
+            where: { email: decodeToken.email },
+        });
+        let fileName = req.files[0].filename;
+        let checkCurer = await KurerDocuments.findOne({where:{kurId: user.id}})
+        if (!checkCurer){
+            await KurerDocuments.create({
+                passportPropiska: fileName,
+                kurId: user.id,
+                kererId: user.id
+            })
+        } else {
+            let update = { passportPropiska: fileName };
+            await KurerDocuments.update(update, { where: { kurId: user.id } });
+        }
+        return res.json({message: "Аватар успешно загружен"});
+    }
+    async passportselfi(req, res) {
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json({message: 'Ненайден айди пользователя'});
+        }
+        const token = authorization.slice(7);
+        const decodeToken = jwt.decode(token);
+        const user = await Kur.findOne({
+            where: { email: decodeToken.email },
+        });
+        let fileName = req.files[0].filename;
+        let checkCurer = await KurerDocuments.findOne({where:{kurId: user.id}})
+        if (!checkCurer){
+            await KurerDocuments.create({
+                passportSelfi: fileName,
+                kurId: user.id,
+                kererId: user.id
+            })
+        } else {
+            let update = { passportSelfi: fileName };
+            await KurerDocuments.update(update, { where: { kurId: user.id } });
+        }
+        return res.json({message: "Аватар успешно загружен"});
+    }
+    async addresadd(req, res) {
+        const { authorization } = req.headers;
+        const {address} = req.body
+        if(!authorization){
+            return res.json({message: 'Ненайден айди пользователя'});
+        }
+        const token = authorization.slice(7);
+        const decodeToken = jwt.decode(token);
+        const user = await Kur.findOne({
+            where: { email: decodeToken.email },
+        });
+        let checkCurer = await KurerDocuments.findOne({where:{kurId: user.id}})
+        if (!checkCurer){
+            await KurerDocuments.create({
+                address: address,
+                kurId: user.id,
+                kererId: user.id
+            })
+        } else {
+            let update = { address: address };
+            await KurerDocuments.update(update, { where: { kurId: user.id } });
+        }
+        return res.json({message: "Данные успешно обновленны"});
+    }
 }
 module.exports = new KurerKontroller();
