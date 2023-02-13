@@ -98,6 +98,7 @@ class KurerKontroller {
         return res.json("Аватар успешно загружен");
     }
     async passportrazvorot(req, res) {
+        console.log(req.files)
         const { authorization } = req.headers;
         if(!authorization){
             return res.json({message: 'Ненайден айди пользователя'});
