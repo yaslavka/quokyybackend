@@ -108,7 +108,7 @@ class KurerKontroller {
         const user = await Kur.findOne({
             where: { email: decodeToken.email },
         });
-        let fileName = req.files[0].originalname;
+        let fileName = req.files[0].filename;
         let checkCurer = await KurerDocuments.findOne({where:{kurId: user.id}})
         if (!checkCurer){
             await KurerDocuments.create({
