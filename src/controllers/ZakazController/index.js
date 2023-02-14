@@ -183,22 +183,22 @@ class ZakazController {
     async mapKurKoordinates(req, res){
         const {status2,latitude,longitude, zakaz}= req.body
         console.log(req.body)
-        const userzakaz = await Zakaz.findOne({where:{id:zakaz}})
-        switch (status2){
-            case 0:
-                if (userzakaz.status2 === 0){
-                    return res.json(true)
-                }
-                break;
-            case 2:
-                if (userzakaz.status2 === 1){
-                    let update = {latitude:latitude, longitude:longitude}
-                    await Kur.update(update, {where:{orderId:userzakaz.id}})
-                }
-                break;
-            default:
-                break;
-        }
+        // const userzakaz = await Zakaz.findOne({where:{id:zakaz}})
+        // switch (status2){
+        //     case 0:
+        //         if (userzakaz.status2 === 0){
+        //             return res.json(true)
+        //         }
+        //         break;
+        //     case 2:
+        //         if (userzakaz.status2 === 1){
+        //             let update = {latitude:latitude, longitude:longitude}
+        //             await Kur.update(update, {where:{orderId:userzakaz.id}})
+        //         }
+        //         break;
+        //     default:
+        //         break;
+        // }
     }
 
 }
