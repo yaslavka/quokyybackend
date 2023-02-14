@@ -182,6 +182,7 @@ class ZakazController {
     // обновление координат
     async mapKurKoordinates(req, res){
         const {status2,latitude,longitude, zakaz}= req.body
+        console.log(req.body)
         const userzakaz = await Zakaz.findOne({where:{id:zakaz}})
         switch (status2){
             case 0:
