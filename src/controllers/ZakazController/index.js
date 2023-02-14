@@ -111,10 +111,32 @@ class ZakazController {
         const zakaz = await Zakaz.findAll()
         return res.json(zakaz)
     }
+    async vZakaz (req, res){
+        const {zakaz} = req.query
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json({message: 'Вы не авторизованы'});
+        }
+        let user = await Zakaz.findOne({ where: { id:zakaz } });
+        if (!user) {
+            return res.json({message: "заказ не найден"});
+        }
+        const token = authorization.slice(7);
+        const { email } = jwt.decode(token);
+        let kurr = await Kur.findOne({where: {email}})
+        if (user.status2 === false){
+            let update = {orderId:user.id}
+            let statusypdate = {status1: true, status2: true}
+            await Kur.update(update, {where:{id: kurr.id}})
+            await Zakaz.update(statusypdate,{where: {id: user.id}})
+            return res.json({message: "заказ успешно взят в работу"})
+        }else if (user.status2 === true){
+            return res.json({message: "заказ был взят в работу джругим куръером"})
+        }
+    }
 
     async mapZakaz(req, res, next){
         const {zakaz} = req.query
-        console.log(req.query)
         let user = await Zakaz.findOne({ where: { id:zakaz } });
         if (!user) {
             return next(ApiError.internal("Заказ найден"));
