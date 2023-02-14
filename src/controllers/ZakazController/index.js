@@ -192,12 +192,7 @@ class ZakazController {
             case 2:
                 if (userzakaz.status2 === 1){
                     let update = {latitude:latitude, longitude:longitude}
-                    let ceck = await Zakaz.findOne({where: update})
-                    if (ceck === latitude && longitude){
-                        await Zakaz.update(update, {where:{id:userzakaz.id}})
-                    }else {
-                        await Kur.update(update, {where:{orderId:userzakaz.id}})
-                    }
+                    await Kur.update(update, {where:{orderId:userzakaz.id}})
                 }
                 break;
             default:
