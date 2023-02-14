@@ -175,6 +175,7 @@ class ZakazController {
             //куда доставить
             latitude: zakazkur.latitude,
             longitude: zakazkur.longitude,
+            status2:zakazkur.status2
         }
         return res.json({items: result})
     }
