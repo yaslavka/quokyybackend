@@ -52,6 +52,7 @@ app.use("/api/kur/document", express.static(path.resolve(__dirname, "files", "im
 app.get('/api/kur/zakazy', ZakazController.kurZakaz)
 //все заказы
 app.get('/api/kur/allzakaz', ZakazController.allZakaz)
+app.get('/api/kur/myzakaz', ZakazController.mapKurZakaz)
 app.post('/api/kur/registration', KurerKontroller.registration)
 app.post('/api/kur/login', KurerKontroller.login)
 app.get('/api/kur', KurerKontroller.user)
