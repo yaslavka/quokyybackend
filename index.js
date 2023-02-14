@@ -56,7 +56,7 @@ app.get('/api/kur/myzakaz', ZakazController.mapKurZakaz)
 app.post('/api/kur/registration', KurerKontroller.registration)
 app.post('/api/kur/login', KurerKontroller.login)
 app.get('/api/kur', KurerKontroller.user)
-app.get('/api/kur/locationupdate', ZakazController.mapKurKoordinates)
+app.post('/api/kur/locationupdate', ZakazController.mapKurKoordinates)
 app.post('/api/kur/addressadd', KurerKontroller.addresadd)
 const storage = multer.diskStorage({
     destination(req, file, callback) {
