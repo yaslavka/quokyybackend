@@ -185,13 +185,13 @@ class ZakazController {
         console.log(req.body)
         const userzakaz = await Zakaz.findOne({where:{id:zakaz}})
         switch (status2){
-            case 0:
-                if (userzakaz.status2 === 0){
+            case false:
+                if (userzakaz.status2 === false){
                     return res.json(true)
                 }
                 break;
-            case 2:
-                if (userzakaz.status2 === 1){
+            case true:
+                if (userzakaz.status2 === true){
                     let update = {latitude:latitude, longitude:longitude}
                     await Kur.update(update, {where:{orderId:userzakaz.id}})
                 }
