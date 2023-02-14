@@ -151,35 +151,33 @@ class ZakazController {
     }
     async mapKurZakaz(req, res, next){
         const {zakaz} = req.query
-        setTimeout(async ()=>{
-            let zakazkur = await Zakaz.findOne({ where: { id:zakaz } });
-            if (!zakazkur) {
-                return next(ApiError.internal("Заказ найден"));
-            }
-            const kurr = await Kur.findOne({where:{orderId: zakazkur.id}})
-            const map = await User.findOne({where: {id: zakazkur.userId}})
-            let result = {
-                id: zakaz,
-                //аватар и имя заказчика
-                avatar: map.avatar,
-                first_name: map.first_name,
-                //аватар и имя куръера
-                avatars: kurr.avatar,
-                first_names: kurr.first_name,
-                //Расстояние между заказом и курьером
-                latitudess: kurr.latitude,
-                longitudess: kurr.longitude,
+        let zakazkur = await Zakaz.findOne({ where: { id:zakaz } });
+        if (!zakazkur) {
+            return next(ApiError.internal("Заказ найден"));
+        }
+        const kurr = await Kur.findOne({where:{orderId: zakazkur.id}})
+        const map = await User.findOne({where: {id: zakazkur.userId}})
+        let result = {
+            id: zakaz,
+            //аватар и имя заказчика
+            avatar: map.avatar,
+            first_name: map.first_name,
+            //аватар и имя куръера
+            avatars: kurr.avatar,
+            first_names: kurr.first_name,
+            //Расстояние между заказом и курьером
+            latitudess: kurr.latitude,
+            longitudess: kurr.longitude,
 
-                //откуда забрать
-                latitudes: zakazkur.latitudes,
-                longitudes: zakazkur.longitudes,
-                //куда доставить
-                latitude: zakazkur.latitude,
-                longitude: zakazkur.longitude,
-                status2:zakazkur.status2
-            }
-            return res.json({items: result})
-        },3000)
+            //откуда забрать
+            latitudes: zakazkur.latitudes,
+            longitudes: zakazkur.longitudes,
+            //куда доставить
+            latitude: zakazkur.latitude,
+            longitude: zakazkur.longitude,
+            status2:zakazkur.status2
+        }
+        return res.json({items: result})
     }
     // обновление координат
     async mapKurKoordinates(req, res){
