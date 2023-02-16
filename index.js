@@ -37,7 +37,7 @@ const server = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 app.use(express.json());
 app.use(bodyParser.json());
-app.get("/api/user/avatar", express.static(path.resolve(__dirname, "files", "images")));
+app.use("/api/user/avatar", express.static(path.resolve(__dirname, "files", "images")));
 app.post('/api/user/registration', UserController.registration)
 app.post('/api/user/login', UserController.login)
 app.get('/api/user', UserController.user)
