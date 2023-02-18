@@ -142,7 +142,7 @@ class ZakazController {
         if (!user) {
             return next(ApiError.internal("Заказ найден"));
         }
-        const kurr = await Kur.findOne({where:{zakazId: zakaz}})
+        const kurr = await Kur.findOne({where:{orderId: zakaz}})
         const map = await User.findOne({where: {id: user.userId}})
         let result = {
             id: zakaz,
@@ -157,9 +157,11 @@ class ZakazController {
             longitudess: kurr.longitude,
 
             //откуда забрать
+            streets: user.streets,
             latitudes: user.latitudes,
             longitudes: user.longitudes,
             //куда доставить
+            street: user.street,
             latitude: user.latitude,
             longitude: user.longitude,
             //поиск куръера
@@ -168,7 +170,7 @@ class ZakazController {
             status2:user.status2,
             //выполнен
             status3:user.status3,
-            streets: user.streets
+            datetime: user.datetime
         }
         return res.json({items: result})
     }
