@@ -2,6 +2,7 @@ const ApiError = require("../../error/ApiError");
 const {User} = require('../../Models/UserModels/index')
 const {Zakaz} = require('../../Models/ZakazModels/index')
 const jwt = require("jsonwebtoken");
+const {Kurrerhystory} = require("../../Models/kurrerhystory");
 const {Kur} = require("../../Models/KurModel");
 
 
@@ -58,6 +59,25 @@ class ZakazController {
         }
         if (user){
             const zakaz = await Zakaz.findAll({where:{userId: user.id}})
+            return res.json(zakaz)
+        }else {
+            return next(ApiError.internal("Нет данных"));
+        }
+    }
+
+    async kurHystory (req, res, next){
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json({message: 'Вы не авторизованы'});
+        }
+        const token = authorization.slice(7);
+        const { email } = jwt.decode(token);
+        let user = await Kur.findOne({ where: { email } });
+        if (!user) {
+            return next(ApiError.internal("Такой пользователь не найден"));
+        }
+        if (user){
+            const zakaz = await Kurrerhystory.findAll({where: {kererId: user.id}})
             return res.json(zakaz)
         }else {
             return next(ApiError.internal("Нет данных"));
