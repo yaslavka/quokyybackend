@@ -32,6 +32,8 @@ const Zakaz = sequelize.define("order", {
     status2:{type: DataTypes.BOOLEAN, defaultValue: false},
     //выполнен
     status3:{type: DataTypes.BOOLEAN, defaultValue: false},
+    status4:{type: DataTypes.BOOLEAN, defaultValue: false},
+    status5:{type: DataTypes.BOOLEAN, defaultValue: false},
     userId: {type: DataTypes.BIGINT, allowNull: false},
 
 })
