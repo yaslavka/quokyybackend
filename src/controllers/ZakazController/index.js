@@ -99,7 +99,9 @@ class ZakazController {
                     summ:zakaz.summ,
                     status1:zakaz.status1,
                     status2:zakaz.status2,
-                    status3:zakaz.status3
+                    status3:zakaz.status3,
+                    status4:zakaz.status4,
+                    status5:zakaz.status5
 
                 }})
         }else {
@@ -124,13 +126,13 @@ class ZakazController {
         const token = authorization.slice(7);
         const { email } = jwt.decode(token);
         let kurr = await Kur.findOne({where: {email}})
-        if (user.status2 === false){
+        if (user.status1 === false){
             let update = {orderId:user.id}
-            let statusypdate = {status1: true, status2: true}
+            let statusypdate = {status1: true}
             await Kur.update(update, {where:{id: kurr.id}})
             await Zakaz.update(statusypdate,{where: {id: user.id}})
             return res.json({message: "заказ успешно взят в работу"})
-        }else if (user.status2 === true){
+        }else if (user.status1 === true){
             return res.json({message: "заказ был взят в работу джругим куръером"})
         }
     }
@@ -169,6 +171,8 @@ class ZakazController {
             status2:user.status2,
             //выполнен
             status3:user.status3,
+            status4:user.status4,
+            status5:user.status5,
             datetime: user.datetime
         }
         return res.json({items: result})
@@ -199,7 +203,11 @@ class ZakazController {
             //куда доставить
             latitude: zakazkur.latitude,
             longitude: zakazkur.longitude,
-            status2:zakazkur.status2
+            status1:zakazkur.status1,
+            status2:zakazkur.status2,
+            status3:zakazkur.status3,
+            status4:zakazkur.status4,
+            status5:zakazkur.status5
         }
         return res.json({items: result})
     }
