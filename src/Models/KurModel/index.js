@@ -16,7 +16,7 @@ const Kur = sequelize.define(
         finance_password: {type: DataTypes.STRING, defaultValue: null},
         income: {type: DataTypes.DECIMAL(61, 2), defaultValue: 0.00},
         description: {type: DataTypes.STRING, defaultValue: null},
-        typedostav: {type: DataTypes.STRING, defaultValue: null},
+        typedostav: {type: DataTypes.INTEGER, defaultValue: 0},
         latitude: {type: DataTypes.DECIMAL(61, 15), defaultValue: 0.000000000000000, allowNull: false},
         longitude: {type: DataTypes.DECIMAL(61, 15), defaultValue: 0.000000000000000, allowNull: false},
         orderId: {type: DataTypes.BIGINT, allowNull: true},
