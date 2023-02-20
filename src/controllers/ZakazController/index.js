@@ -109,7 +109,6 @@ class ZakazController {
 
     async allZakaz (req, res){
         const zakaz = await Zakaz.findAll()
-        console.log('все заказы', zakaz)
         return res.json(zakaz)
     }
     async vZakaz (req, res){
