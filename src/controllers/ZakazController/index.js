@@ -141,7 +141,7 @@ class ZakazController {
         }
         if (zakaz?.length > 0){
             zakaz.map((i, index)=>{
-                result={
+                result[i.id]={
                     id:zakaz[index]?.id,
                     _geo:{lat:zakaz[index]?.latitudes, lng: zakaz[index]?.longitudes}
 
