@@ -52,6 +52,8 @@ app.use("/api/kur/document", express.static(path.resolve(__dirname, "files", "im
 app.get('/api/kur/zakazy', ZakazController.kurZakaz)
 //все заказы
 app.get('/api/kur/allzakaz', ZakazController.allZakaz)
+app.get('/api/kur/allzakaz', ZakazController.allZakaz)
+app.post('/api/kur/allzakaz/indexes/matrixTypes/search', ZakazController.search)
 //история
 app.get('/api/kur/zakazy/hystory', ZakazController.kurHystory)
 //взять ва работу

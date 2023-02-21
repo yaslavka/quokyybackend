@@ -31,6 +31,7 @@ class KurerKontroller {
             longitude: longitude,
             latitude: latitude,
             password: hashPassword,
+            typedostav: 5
         });
         const access_token = generateJwt(
             users.id,

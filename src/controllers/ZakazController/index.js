@@ -133,6 +133,11 @@ class ZakazController {
         const zakaz = await Zakaz.findAll()
         return res.json(zakaz)
     }
+    async search (req, res){
+        console.log(req.body)
+        // const zakaz = await Zakaz.findAll()
+        // return res.json(zakaz)
+    }
     async vZakaz (req, res){
         const {zakaz} = req.query
         const { authorization } = req.headers;
