@@ -139,7 +139,7 @@ class ZakazController {
         let result = {
 
         }
-        zakaz.map((index)=>{
+        zakaz.map((i, index)=>{
             result={
                 id:zakaz[index]?.id,
                 _geo:{lat:zakaz[index]?.latitudes, lng: zakaz[index]?.longitudes}
