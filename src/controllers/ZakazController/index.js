@@ -141,7 +141,7 @@ class ZakazController {
             zakaz.map((i)=>{
                 i['id']= i['id']
                 result={
-                    id:i.id
+                    items: i.dataValues
 
                 }
             })
