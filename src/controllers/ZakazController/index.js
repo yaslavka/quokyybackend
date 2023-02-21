@@ -136,18 +136,12 @@ class ZakazController {
     async search (req, res){
         console.log(req.body)
         const zakaz = await Zakaz.findAll()
-        let result = []
-        if (zakaz.length>0){
-            zakaz.map((i)=>{
-                i['id']= i['id']
-                result={
-                    items: i.dataValues
+        zakaz.map((i)=>{
+            let {item} = i.id
+            i.dataValues['id'] = item
+        })
 
-                }
-            })
-        }
-
-        return res.json(result)
+        return res.json(zakaz)
     }
     async vZakaz (req, res){
         const {zakaz} = req.query
