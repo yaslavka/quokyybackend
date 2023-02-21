@@ -136,16 +136,18 @@ class ZakazController {
     async search (req, res){
         console.log(req.body)
         const zakaz = await Zakaz.findAll()
-        zakaz.map((i)=>{
-            const _geo = {}
-            const [lat] = i.latitudes
-            const [lng] = i.longitudes
-            i.dataValues['lat'] = lat
-            i.dataValues['lng'] = lng
-            i['id']= i['id']
-        })
+        let result = []
+        if (zakaz.length>0){
+            zakaz.map((i)=>{
+                i['id']= i['id']
+                result={
+                    id:i.id
 
-        return res.json(zakaz)
+                }
+            })
+        }
+
+        return res.json(result)
     }
     async vZakaz (req, res){
         const {zakaz} = req.query
