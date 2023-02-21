@@ -137,10 +137,8 @@ class ZakazController {
         console.log(req.body)
         const zakaz = await Zakaz.findAll()
         zakaz.map((i)=>{
-            let {item} = i.id
-            i.dataValues['id'] = item
+            i['id']=i[['id']]
         })
-
         return res.json(zakaz)
     }
     async vZakaz (req, res){
