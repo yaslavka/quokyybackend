@@ -140,17 +140,18 @@ class ZakazController {
 
         }
         if (zakaz?.length > 0){
-            zakaz.map((i, index)=>{
-                result={
-                    id:i.id,
-                    _geo:{lat:zakaz[index]?.latitudes, lng: zakaz[index]?.longitudes}
-
-                }
+            zakaz.map((i)=>{
+                const _geo = {}
+                const [lat] = i.latitudes
+                const [lng] = i.longitudes
+                i.dataValues['lat'] = lat
+                i.dataValues['lng'] = lng
+                i['id']= i['id']
             })
 
         }
 
-        return res.json([result])
+        return res.json(result)
     }
     async vZakaz (req, res){
         const {zakaz} = req.query
