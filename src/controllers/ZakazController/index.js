@@ -147,11 +147,7 @@ class ZakazController {
 
                 }
             })
-            for (let i = 0; i<50; i++){
-                if (!result[i]){
-                    result[i] = null
-                }
-            }
+
         }
 
         return res.json(result)
