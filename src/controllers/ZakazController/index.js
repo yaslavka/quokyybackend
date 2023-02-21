@@ -139,13 +139,21 @@ class ZakazController {
         let result = {
 
         }
-        zakaz.map((i, index)=>{
-            result={
-                id:zakaz[index]?.id,
-                _geo:{lat:zakaz[index]?.latitudes, lng: zakaz[index]?.longitudes}
+        if (zakaz?.length > 0){
+            zakaz.map((i, index)=>{
+                result={
+                    id:zakaz[index]?.id,
+                    _geo:{lat:zakaz[index]?.latitudes, lng: zakaz[index]?.longitudes}
 
+                }
+            })
+            for (let i = 0; i<50; i++){
+                if (!result[i]){
+                    result[i] = null
+                }
             }
-        })
+        }
+
         return res.json(result)
     }
     async vZakaz (req, res){
