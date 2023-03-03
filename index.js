@@ -44,6 +44,8 @@ app.get('/api/user', UserController.user)
 app.post('/api/user/zakaz', ZakazController.sozdatZakazy)
 app.get('/api/user/zakazy', ZakazController.myZakaz)
 app.get('/api/user/myzakaz', ZakazController.mapZakaz)
+app.post('/api/user/info', UserController.cengeinfo)
+app.post('/api/user/dellete', UserController.dellete)
 
 //куръер
 app.use("/api/kur/avatar", express.static(path.resolve(__dirname, "files", "images")));
@@ -62,6 +64,8 @@ app.get('/api/kur/myzakaz', ZakazController.mapKurZakaz)
 app.post('/api/kur/registration', KurerKontroller.registration)
 app.post('/api/kur/login', KurerKontroller.login)
 app.get('/api/kur', KurerKontroller.user)
+app.post('/api/kur/info', KurerKontroller.cengeinfo)
+app.post('/api/kur/dellete', KurerKontroller.dellete)
 app.post('/api/kur/locationupdate', ZakazController.mapKurKoordinates)
 app.post('/api/kur/addressadd', KurerKontroller.addresadd)
 const storage = multer.diskStorage({

@@ -195,5 +195,40 @@ class KurerKontroller {
         }
         return res.json({message: "Данные успешно обновленны"});
     }
+    async cengeinfo(req, res, next){
+        const { first_name, last_name, phone, email, password, new_password,} = req.body
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json('Ненайден айди пользователя');
+        }
+        const token = authorization.slice(7);
+        const decodeToken = jwt.decode(token);
+        const user = await Kur.findOne({
+            where: { email: decodeToken.email },
+        });
+        let comparePassword = bcrypt.compareSync(password, user.password);
+        if (!comparePassword) {
+            return next(ApiError.internal("Неверный пароль"));
+        }
+        const hashPassword = await bcrypt.hash(new_password, 5);
+        let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
+        await Kur.update(update, {where:{id:user.id}})
+        return res.json(true)
+
+    }
+    async dellete(req, res) {
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json('Ненайден айди пользователя');
+        }
+        const token = authorization.slice(7);
+        const decodeToken = jwt.decode(token);
+        const user = await Kur.findOne({
+            where: { email: decodeToken.email },
+        });
+        await Kur.destroy({where: {id: user.id}})
+        return res.json(true)
+
+    }
 }
 module.exports = new KurerKontroller();
