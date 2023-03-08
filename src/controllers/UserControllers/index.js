@@ -97,6 +97,7 @@ class UserController {
         const { first_name, last_name, phone, email, password, new_password,} = req.body
         console.log(req.body)
         const { authorization } = req.headers;
+        console.log(authorization)
         if(!authorization){
             return res.json('Ненайден айди пользователя');
         }
