@@ -96,7 +96,6 @@ class UserController {
     async cengeinfo(req, res, next){
         const { first_name, last_name, phone, email, password, new_password,} = req.body
         console.log(req.body)
-        let update ={}
         const { authorization } = req.headers;
         if(!authorization){
             return res.json('Ненайден айди пользователя');
@@ -108,37 +107,41 @@ class UserController {
         });
         //let comparePassword = bcrypt.compareSync(password, user.password);
         const hashPassword = await bcrypt.hash(password, 5);
-        if (first_name === ''){
-           update = {first_name:user.first_name}
+        if (!first_name){
+           return res.json(true)
         }else {
-            update = {first_name:first_name}
+          let  update = {first_name:first_name}
+            await User.update(update, {where:{id:user.id}})
         }
-        if (last_name === ''){
-            update ={last_name:user.last_name}
+        if (!last_name){
+            return res.json(true)
         }else {
-            update = {last_name:last_name}
+          let  update = {last_name:last_name}
+            await User.update(update, {where:{id:user.id}})
         }
-        if (phone === ''){
-            update= {phone:user.phone}
+        if (!phone){
+            return res.json(true)
         }else {
-            update= {phone:phone}
+           let update= {phone:phone}
+            await User.update(update, {where:{id:user.id}})
         }
-        if (email === ''){
-            update ={email:user.email}
+        if (!email){
+            return res.json(true)
         }else {
-            update ={email: email}
+           let update ={email: email}
+            await User.update(update, {where:{id:user.id}})
         }
         // if (!comparePassword) {
         //     return next(ApiError.internal("Неверный пароль"));
         // }
-        if (password === ''){
-            update = {password:user.password}
+        if (!password){
+            return res.json(true)
         }else {
-            update = {password:hashPassword}
+          let  update = {password:hashPassword}
+            await User.update(update, {where:{id:user.id}})
         }
 
         //let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
-        await User.update(update, {where:{id:user.id}})
         return res.json(true)
 
     }
