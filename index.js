@@ -69,6 +69,7 @@ app.post('/api/kur/dellete', KurerKontroller.dellete)
 app.post('/api/kur/locationupdate', ZakazController.mapKurKoordinates)
 app.post('/api/kur/addressadd', KurerKontroller.addresadd)
 app.post('/api/kur/status', ZakazController.getStatus)
+app.post('/api/kur/typed', ZakazController.getTyped)
 const storage = multer.diskStorage({
     destination(req, file, callback) {
         callback(null, './files/images');

@@ -266,6 +266,27 @@ class ZakazController {
         },3000)
     }
     async getStatus(req, res){
+        const {id, status} = req.body
+        const zkazstatus = Zakaz.findOne({where:{id:id}})
+        if (status === 2){
+            let update = {status2:true}
+            await Zakaz.update(update, {where:{id:zkazstatus.id}})
+        }
+        if (status === 3){
+            let update = {status3:true}
+            await Zakaz.update(update, {where:{id:zkazstatus.id}})
+        }
+        if (status === 4){
+            let update = {status4:true}
+            await Zakaz.update(update, {where:{id:zkazstatus.id}})
+        }
+        if (status === 5){
+            let update = {status5:true}
+            await Zakaz.update(update, {where:{id:zkazstatus.id}})
+        }
+        return res.json(true)
+    }
+    async getTyped(req, res){
         console.log(req.body)
     }
 
