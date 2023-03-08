@@ -111,7 +111,7 @@ class UserController {
         if (!first_name){
            return res.json(true)
         }else {
-          let  update = {first_name:first_name}
+          const update = {first_name:first_name}
             await User.update(update, {where:{id:user.id}})
         }
         if (!last_name){
