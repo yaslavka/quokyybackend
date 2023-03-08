@@ -113,24 +113,25 @@ class UserController {
         const email = emails
         const passwor = password
         if (!firstname){
-           return res.json(true)
+            await User.update({first_name:user.first_name}, {where:{first_name:user.first_name}})
         }else {
             await User.update({first_name:first_name}, {where:{first_name:user.first_name}})
+
         }
 
         if (!lastname) {
-            return res.json(true)
+            await User.update({last_name:user.last_name}, {where:{last_name:user.last_name}})
         }else {
             await User.update({last_name:last_name}, {where:{last_name:user.last_name}})
         }
 
         if (!phones){
-            return res.json(true)
+            await User.update({phone:user.phone}, {where:{phone:user.phone}})
         }else {
             await User.update({phone:phone}, {where:{phone:user.phone}})
         }
         if (!email){
-            return res.json(true)
+            await User.update({email:user.email}, {where:{email:user.email}})
         }else {
             await User.update({email:emails}, {where:{email:user.email}})
         }
