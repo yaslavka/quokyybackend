@@ -96,23 +96,49 @@ class UserController {
     async cengeinfo(req, res, next){
         const { first_name, last_name, phone, email, password, new_password,} = req.body
         console.log(req.body)
-        // const { authorization } = req.headers;
-        // if(!authorization){
-        //     return res.json('Ненайден айди пользователя');
-        // }
-        // const token = authorization.slice(7);
-        // const decodeToken = jwt.decode(token);
-        // const user = await User.findOne({
-        //     where: { email: decodeToken.email },
-        // });
-        // let comparePassword = bcrypt.compareSync(password, user.password);
-        // if (!comparePassword) {
-        //     return next(ApiError.internal("Неверный пароль"));
-        // }
-        // const hashPassword = await bcrypt.hash(new_password, 5);
-        // let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
-        // await User.update(update, {where:{id:user.id}})
-        // return res.json(true)
+        let update
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json('Ненайден айди пользователя');
+        }
+        const token = authorization.slice(7);
+        const decodeToken = jwt.decode(token);
+        const user = await User.findOne({
+            where: { email: decodeToken.email },
+        });
+        let comparePassword = bcrypt.compareSync(password, user.password);
+        if (!comparePassword) {
+            return next(ApiError.internal("Неверный пароль"));
+        }
+        const hashPassword = await bcrypt.hash(new_password, 5);
+        if (!first_name){
+           update = {first_name:user.first_name}
+        }else {
+            update = {first_name:first_name}
+        }
+        if (!last_name){
+            update ={last_name:user.last_name}
+        }else {
+            update = {last_name:last_name}
+        }
+        if (!phone){
+            update= {phone:user.phone}
+        }else {
+            update= {phone:phone}
+        }
+        if (!email){
+            update ={email:user.email}
+        }else {
+            update ={email: email}
+        }
+        if (!password){
+            update = {password:user.password}
+        }else {
+            update = {password:hashPassword}
+        }
+        //let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
+        await User.update(update, {where:{id:user.id}})
+        return res.json(true)
 
     }
     async dellete(req, res) {
