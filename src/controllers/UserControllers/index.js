@@ -108,7 +108,7 @@ class UserController {
         });
         //let comparePassword = bcrypt.compareSync(password, user.password);
         const hashPassword = await bcrypt.hash(password, 5);
-        if (!first_name){
+        if (first_name === ''){
            return res.json(true)
         }else {
           const update = {first_name:first_name}
