@@ -142,6 +142,7 @@ class ZakazController {
     }
     async vZakaz (req, res){
         const {zakaz} = req.query
+        console.log(zakaz)
         const { authorization } = req.headers;
         if(!authorization){
             return res.json({message: 'Вы не авторизованы'});
