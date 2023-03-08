@@ -108,22 +108,22 @@ class UserController {
         });
         //let comparePassword = bcrypt.compareSync(password, user.password);
         const hashPassword = await bcrypt.hash(password, 5);
-        if (!first_name){
+        if (first_name === ''){
            update = {first_name:user.first_name}
         }else {
             update = {first_name:first_name}
         }
-        if (!last_name){
+        if (last_name === ''){
             update ={last_name:user.last_name}
         }else {
             update = {last_name:last_name}
         }
-        if (!phone){
+        if (phone === ''){
             update= {phone:user.phone}
         }else {
             update= {phone:phone}
         }
-        if (!email){
+        if (email === ''){
             update ={email:user.email}
         }else {
             update ={email: email}
@@ -131,7 +131,7 @@ class UserController {
         // if (!comparePassword) {
         //     return next(ApiError.internal("Неверный пароль"));
         // }
-        if (!password){
+        if (password === ''){
             update = {password:user.password}
         }else {
             update = {password:hashPassword}
