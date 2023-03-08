@@ -110,26 +110,22 @@ class UserController {
         if (first_name === ''){
            return res.json(true)
         }else {
-          const update = {first_name:first_name}
-            await User.update(update, {where:{id:user.id}})
+            await User.update(first_name, {where:{id:user.id}})
         }
         if (last_name === ''){
             return res.json(true)
         }else {
-          const  update = {last_name:last_name}
-            await User.update(update, {where:{id:user.id}})
+            await User.update(last_name, {where:{id:user.id}})
         }
         if (phone === ''){
             return res.json(true)
         }else {
-           const update= {phone:phone}
-            await User.update(update, {where:{id:user.id}})
+            await User.update(phone, {where:{id:user.id}})
         }
         if (email === ''){
             return res.json(true)
         }else {
-           const update ={email: email}
-            await User.update(update, {where:{id:user.id}})
+            await User.update(email, {where:{id:user.id}})
         }
         // if (!comparePassword) {
         //     return next(ApiError.internal("Неверный пароль"));
@@ -137,8 +133,7 @@ class UserController {
         if (password === ''){
             return res.json(true)
         }else {
-          const  update = {password:hashPassword}
-            await User.update(update, {where:{id:user.id}})
+            await User.update(password, {where:{id:user.id}})
         }
 
         //let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
