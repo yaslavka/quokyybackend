@@ -265,6 +265,9 @@ class ZakazController {
             }
         },3000)
     }
+    async getStatus(req, res){
+        console.log(req.body)
+    }
 
 }
 module.exports = new ZakazController();
