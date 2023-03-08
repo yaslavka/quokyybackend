@@ -107,31 +107,41 @@ class UserController {
         });
         //let comparePassword = bcrypt.compareSync(password, user.password);
         const hashPassword = await bcrypt.hash(password, 5);
-        if (!first_name || !last_name || !phone || !emails || !password){
+        const firstname = first_name
+        const lastname = last_name
+        const phones =phone
+        const email = emails
+        const passwor = password
+        if (!firstname){
            return res.json(true)
-        }else if (first_name){
+        }else {
             await User.update({first_name:first_name}, {where:{first_name:user.first_name}})
-        }else if (last_name){
-            await User.update({last_name:last_name}, {where:{last_name:user.last_name}})
-        }else if (phone){
-            await User.update({phone:phone}, {where:{phone:user.phone}})
-        }else if (emails){
-            await User.update({email:emails}, {where:{email:user.email}})
-        }else if (password){
-            await User.update({password:hashPassword}, {where:{password:user.password}})
         }
-        return res.json(true)
 
+        if (!lastname) {
+            return res.json(true)
+        }else {
+            await User.update({last_name:last_name}, {where:{last_name:user.last_name}})
+        }
 
-
+        if (!phones){
+            return res.json(true)
+        }else {
+            await User.update({phone:phone}, {where:{phone:user.phone}})
+        }
+        if (!email){
+            return res.json(true)
+        }else {
+            await User.update({email:emails}, {where:{email:user.email}})
+        }
         // if (!comparePassword) {
         //     return next(ApiError.internal("Неверный пароль"));
         // }
-        // if (password === ''){
-        //     return res.json(true)
-        // }else {
-        //     await User.update({password:hashPassword}, {where:{password:user.password}})
-        // }
+        if (!passwor){
+            return res.json(true)
+        }else {
+            await User.update({password:hashPassword}, {where:{password:user.password}})
+        }
 
         //let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
         //return res.json(true)
