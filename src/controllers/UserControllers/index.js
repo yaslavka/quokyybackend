@@ -143,7 +143,7 @@ class UserController {
         }
 
         //let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
-        return res.json(true)
+        //return res.json(true)
 
     }
     async dellete(req, res) {
