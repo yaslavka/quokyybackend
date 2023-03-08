@@ -106,12 +106,13 @@ class UserController {
             where: { email: decodeToken.email },
         });
         //let comparePassword = bcrypt.compareSync(password, user.password);
-        const hashPassword = await bcrypt.hash(password, 5);
+
         if (first_name === ''){
            return res.json(true)
         }else {
             await User.update({first_name:first_name}, {where:{first_name:user.first_name}})
         }
+        const hashPassword = await bcrypt.hash(password, 5);
         if (last_name === '') {
             return res.json(true)
 
