@@ -21,7 +21,7 @@ class UserController {
         if (candidatephone){
             return next(ApiError.badRequest("Такой телефон уже существует"));
         }
-        const hashPassword = await bcrypt.hash(password);
+        const hashPassword = await bcrypt.hash(password, 5);
         const users = await User.create({
             first_name,
             last_name,
@@ -106,7 +106,7 @@ class UserController {
             where: { email: decodeToken.email },
         });
         //let comparePassword = bcrypt.compareSync(password, user.password);
-        const hashPassword = await bcrypt.hash(password);
+        const hashPassword = await bcrypt.hash(password, 5);
         if (!first_name){
            return res.json(true)
         }else {
