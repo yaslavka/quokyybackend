@@ -197,6 +197,7 @@ class KurerKontroller {
     }
     async cengeinfo(req, res, next){
         const { first_name, last_name, phone, email, password, new_password,} = req.body
+        console.log(req.body)
         const { authorization } = req.headers;
         if(!authorization){
             return res.json('Ненайден айди пользователя');
@@ -206,13 +207,43 @@ class KurerKontroller {
         const user = await Kur.findOne({
             where: { email: decodeToken.email },
         });
-        let comparePassword = bcrypt.compareSync(password, user.password);
-        if (!comparePassword) {
-            return next(ApiError.internal("Неверный пароль"));
+        //let comparePassword = bcrypt.compareSync(password, user.password);
+        const hashPassword = await bcrypt.hash(password, 5);
+        if (!first_name){
+            return res.json(true)
+        }else {
+            let  update = {first_name:first_name}
+            await Kur.update(update, {where:{id:user.id}})
         }
-        const hashPassword = await bcrypt.hash(new_password, 5);
-        let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
-        await Kur.update(update, {where:{id:user.id}})
+        if (!last_name){
+            return res.json(true)
+        }else {
+            let  update = {last_name:last_name}
+            await Kur.update(update, {where:{id:user.id}})
+        }
+        if (!phone){
+            return res.json(true)
+        }else {
+            let update= {phone:phone}
+            await Kur.update(update, {where:{id:user.id}})
+        }
+        if (!email){
+            return res.json(true)
+        }else {
+            let update ={email: email}
+            await Kur.update(update, {where:{id:user.id}})
+        }
+        // if (!comparePassword) {
+        //     return next(ApiError.internal("Неверный пароль"));
+        // }
+        if (!password){
+            return res.json(true)
+        }else {
+            let  update = {password:hashPassword}
+            await Kur.update(update, {where:{id:user.id}})
+        }
+
+        //let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
         return res.json(true)
 
     }
