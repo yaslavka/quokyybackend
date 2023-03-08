@@ -114,6 +114,7 @@ class UserController {
         }
         if (last_name === '') {
             return res.json(true)
+
         }else {
             await User.update({last_name:last_name}, {where:{last_name:user.last_name}})
         }
