@@ -296,6 +296,7 @@ class ZakazController {
         let kurr = await Kur.findOne({where: {email}})
         let update = {typedostav:type}
         await Kur.update(update, {where: {id:kurr.id }})
+        return res.json(true)
     }
 
 }
