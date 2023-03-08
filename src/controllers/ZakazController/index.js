@@ -130,7 +130,7 @@ class ZakazController {
     }
 
     async allZakaz (req, res){
-        const zakaz = await Zakaz.findAll()
+        const zakaz = await Zakaz.findAll({order: [['createdAt', 'DESC']]})
         return res.json(zakaz)
     }
     async search (req, res){
