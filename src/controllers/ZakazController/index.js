@@ -145,7 +145,6 @@ class ZakazController {
     }
     async vZakaz (req, res){
         const {zakaz} = req.query
-        console.log(zakaz)
         const { authorization } = req.headers;
         if(!authorization){
             return res.json({message: 'Вы не авторизованы'});
@@ -287,7 +286,16 @@ class ZakazController {
         return res.json(true)
     }
     async getTyped(req, res){
-        console.log(req.body)
+        const {type} =req.body
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json({message: 'Вы не авторизованы'});
+        }
+        const token = authorization.slice(7);
+        const { email } = jwt.decode(token);
+        let kurr = await Kur.findOne({where: {email}})
+        let update = {typedostav:type}
+        await Kur.update(update, {where: {id:kurr.id }})
     }
 
 }
