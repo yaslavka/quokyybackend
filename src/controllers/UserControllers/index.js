@@ -94,7 +94,7 @@ class UserController {
         return res.json("Аватар успешно загружен");
     }
     async cengeinfo(req, res, next){
-        const { first_name, last_name, phone, email, password, new_password,} = req.body
+        const { first_name, last_name, phone, password,} = req.body
         console.log(req.body)
         const { authorization } = req.headers;
         console.log(authorization)
@@ -126,12 +126,12 @@ class UserController {
            let update= {phone:phone}
             await User.update(update, {where:{id:user.id}})
         }
-        if (!email){
-            return res.json(true)
-        }else {
-           let update ={email: email}
-            await User.update(update, {where:{id:user.id}})
-        }
+        // if (!email){
+        //     return res.json(true)
+        // }else {
+        //    let update ={email: email}
+        //     await User.update(update, {where:{id:user.id}})
+        // }
         // if (!comparePassword) {
         //     return next(ApiError.internal("Неверный пароль"));
         // }
