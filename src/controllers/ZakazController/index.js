@@ -94,6 +94,9 @@ class ZakazController {
         let kurr = await Kur.findOne({where: {email}})
         if (kurr){
             const zakaz = await Zakaz.findOne({where:{id: kurr.orderId}})
+            if (!zakaz){
+                return res.json({message: 'Вы не авторизованы'});
+            }
             return res.json({
                 items: {
                     id:zakaz.id,
