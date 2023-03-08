@@ -96,7 +96,7 @@ class UserController {
     async cengeinfo(req, res, next){
         const { first_name, last_name, phone, email, password, new_password,} = req.body
         console.log(req.body)
-        let update
+        let update ={}
         const { authorization } = req.headers;
         if(!authorization){
             return res.json('Ненайден айди пользователя');
