@@ -94,10 +94,9 @@ class UserController {
         return res.json("Аватар успешно загружен");
     }
     async cengeinfo(req, res, next){
-        const { first_name, last_name, phone, password,} = req.body
+        const { first_name, last_name, phone, email, password} = req.body
         console.log(req.body)
         const { authorization } = req.headers;
-        console.log(authorization)
         if(!authorization){
             return res.json('Ненайден айди пользователя');
         }
@@ -114,31 +113,31 @@ class UserController {
           const update = {first_name:first_name}
             await User.update(update, {where:{id:user.id}})
         }
-        if (!last_name){
+        if (last_name === ''){
             return res.json(true)
         }else {
-          let  update = {last_name:last_name}
+          const  update = {last_name:last_name}
             await User.update(update, {where:{id:user.id}})
         }
-        if (!phone){
+        if (phone === ''){
             return res.json(true)
         }else {
-           let update= {phone:phone}
+           const update= {phone:phone}
             await User.update(update, {where:{id:user.id}})
         }
-        // if (!email){
-        //     return res.json(true)
-        // }else {
-        //    let update ={email: email}
-        //     await User.update(update, {where:{id:user.id}})
-        // }
+        if (email === ''){
+            return res.json(true)
+        }else {
+           const update ={email: email}
+            await User.update(update, {where:{id:user.id}})
+        }
         // if (!comparePassword) {
         //     return next(ApiError.internal("Неверный пароль"));
         // }
-        if (!password){
+        if (password === ''){
             return res.json(true)
         }else {
-          let  update = {password:hashPassword}
+          const  update = {password:hashPassword}
             await User.update(update, {where:{id:user.id}})
         }
 
