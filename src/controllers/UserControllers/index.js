@@ -107,9 +107,6 @@ class UserController {
             where: { email: decodeToken.email },
         });
         let comparePassword = bcrypt.compareSync(password, user.password);
-        if (!comparePassword) {
-            return next(ApiError.internal("Неверный пароль"));
-        }
         const hashPassword = await bcrypt.hash(new_password, 5);
         if (!first_name){
            update = {first_name:user.first_name}
@@ -131,11 +128,15 @@ class UserController {
         }else {
             update ={email: email}
         }
+        if (!comparePassword) {
+            return next(ApiError.internal("Неверный пароль"));
+        }
         if (!password){
             update = {password:user.password}
         }else {
             update = {password:hashPassword}
         }
+
         //let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
         await User.update(update, {where:{id:user.id}})
         return res.json(true)
