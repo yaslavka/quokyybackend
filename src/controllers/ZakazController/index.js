@@ -277,11 +277,11 @@ class ZakazController {
         const zkazstatus = Zakaz.findOne({where:{id:id}})
         if (status === 2){
             let update = {status2:true}
-            await Zakaz.update(update, {where:{id:zkazstatus.id}})
+            await Zakaz.update(update, {where:{status2:zkazstatus.status2}})
         }
         if (status === 3){
             let update = {status3:true}
-            await Zakaz.update(update, {where:{id:zkazstatus.id}})
+            await Zakaz.update(update, {where:{status3:zkazstatus.status3}})
         }
         if (status === 4){
             let update = {status4:true}
