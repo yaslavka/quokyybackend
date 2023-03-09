@@ -278,14 +278,14 @@ class ZakazController {
             //let update = {status2:1}
             await Zakaz.update({status2:true}, {where:{id:id}})
         }
-        // if (status === 3){
-        //     let update = {status3:true}
-        //     await Zakaz.update(update, {where:{status3:zkazstatus.status3}})
-        // }
-        // if (status === 4){
-        //     let update = {status4:true}
-        //     await Zakaz.update(update, {where:{id:zkazstatus.id}})
-        // }
+        if (status === 3){
+            let update = {status3:true}
+            await Zakaz.update(update, {where:{id:id}})
+        }
+        if (status === 4){
+            let update = {status4:true}
+            await Zakaz.update(update, {where:{id:id}})
+        }
         // if (status === 5){
         //     let update = {status5:true}
         //     let up = {orderId: null}
