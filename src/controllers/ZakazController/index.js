@@ -318,11 +318,11 @@ class ZakazController {
                 strahovka:zkazstatus.strahovka,
                 cennost:zkazstatus.cennost,
                 summ:zkazstatus.summ,
-                status1:zkazstatus.status1,
-                status2:zkazstatus.status2,
-                status3:zkazstatus.status3,
-                status4:zkazstatus.status4,
-                status5:zkazstatus.status5,
+                status1:true,
+                status2:true,
+                status3:true,
+                status4:true,
+                status5:true,
                 kererId:kurr.id
             })
             await Kur.update(up, {where:{orderId: kurr.orderId}})
