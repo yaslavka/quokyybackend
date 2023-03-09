@@ -218,26 +218,26 @@ class ZakazController {
         let result = {
             id: zakaz,
             //аватар и имя заказчика
-            avatar: map.avatar,
-            first_name: map.first_name,
+            avatar: map?.avatar,
+            first_name: map?.first_name,
             //аватар и имя куръера
-            avatars: kurr.avatar,
-            first_names: kurr.first_name,
+            avatars: kurr?.avatar,
+            first_names: kurr?.first_name,
             //Расстояние между заказом и курьером
-            latitudess: kurr.latitude,
-            longitudess: kurr.longitude,
+            latitudess: kurr?.latitude,
+            longitudess: kurr?.longitude,
 
             //откуда забрать
-            latitudes: zakazkur.latitudes,
-            longitudes: zakazkur.longitudes,
+            latitudes: zakazkur?.latitudes,
+            longitudes: zakazkur?.longitudes,
             //куда доставить
-            latitude: zakazkur.latitude,
-            longitude: zakazkur.longitude,
-            status1:zakazkur.status1,
-            status2:zakazkur.status2,
-            status3:zakazkur.status3,
-            status4:zakazkur.status4,
-            status5:zakazkur.status5
+            latitude: zakazkur?.latitude,
+            longitude: zakazkur?.longitude,
+            status1:zakazkur?.status1,
+            status2:zakazkur?.status2,
+            status3:zakazkur?.status3,
+            status4:zakazkur?.status4,
+            status5:zakazkur?.status5
         }
         return res.json({items: result})
     }
@@ -290,7 +290,6 @@ class ZakazController {
             let update = {status5:true}
             let up = {orderId: null}
             await Zakaz.update(update, {where:{id:id}})
-            await Kur.update(up, {where:{orderId: kurr.orderId}})
             await Kurrerhystory.create({
                 //Куда доставить
                 latitude:zkazstatus.latitude,
@@ -319,6 +318,7 @@ class ZakazController {
                 status5:zkazstatus.status5,
                 kererId:kurr.id
             })
+            await Kur.update(up, {where:{orderId: kurr.orderId}})
         }
         return res.json(true)
     }
