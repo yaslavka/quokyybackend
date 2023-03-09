@@ -196,8 +196,7 @@ class KurerKontroller {
         return res.json({message: "Данные успешно обновленны"});
     }
     async cengeinfo(req, res, next){
-        const { first_name, last_name, phone, email, password, new_password,} = req.body
-        console.log(req.body)
+        const { first_name, last_name, phone, emails, password} = req.body
         const { authorization } = req.headers;
         if(!authorization){
             return res.json('Ненайден айди пользователя');
@@ -209,42 +208,40 @@ class KurerKontroller {
         });
         //let comparePassword = bcrypt.compareSync(password, user.password);
         const hashPassword = await bcrypt.hash(password, 5);
-        if (!first_name){
-            return res.json(true)
+        const firstname = first_name
+        const lastname = last_name
+        const phones =phone
+        const email = emails
+        const passwor = password
+        if (!firstname){
+            await Kur.update({first_name:user.first_name}, {where:{first_name:user.first_name}})
         }else {
-            let  update = {first_name:first_name}
-            await Kur.update(update, {where:{id:user.id}})
+            await Kur.update({first_name:first_name}, {where:{first_name:user.first_name}})
+
         }
-        if (!last_name){
-            return res.json(true)
+        if (!lastname) {
+            await Kur.update({last_name:user.last_name}, {where:{last_name:user.last_name}})
         }else {
-            let  update = {last_name:last_name}
-            await Kur.update(update, {where:{id:user.id}})
+            await Kur.update({last_name:last_name}, {where:{last_name:user.last_name}})
         }
-        if (!phone){
-            return res.json(true)
+        if (!phones){
+            await Kur.update({phone:user.phone}, {where:{phone:user.phone}})
         }else {
-            let update= {phone:phone}
-            await Kur.update(update, {where:{id:user.id}})
+            await Kur.update({phone:phone}, {where:{phone:user.phone}})
         }
         if (!email){
-            return res.json(true)
+            await Kur.update({email:user.email}, {where:{email:user.email}})
         }else {
-            let update ={email: email}
-            await Kur.update(update, {where:{id:user.id}})
+            await Kur.update({email:emails}, {where:{email:user.email}})
         }
         // if (!comparePassword) {
         //     return next(ApiError.internal("Неверный пароль"));
         // }
-        if (!password){
+        if (!passwor){
             return res.json(true)
         }else {
-            let  update = {password:hashPassword}
-            await Kur.update(update, {where:{id:user.id}})
+            await Kur.update({password:hashPassword}, {where:{password:user.password}})
         }
-
-        //let update = {first_name:first_name, last_name:last_name, phone:phone, email: email, password:hashPassword}
-        return res.json(true)
 
     }
     async dellete(req, res) {

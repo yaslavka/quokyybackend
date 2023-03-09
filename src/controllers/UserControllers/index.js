@@ -93,7 +93,7 @@ class UserController {
         await User.update(update, { where: { id: user.id } });
         return res.json("Аватар успешно загружен");
     }
-    async cengeinfo(req, res, next){
+    async cengeinfo(req, res){
         const { first_name, last_name, phone, emails, password} = req.body
         console.log(req.body)
         const { authorization } = req.headers;

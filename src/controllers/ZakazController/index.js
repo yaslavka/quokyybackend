@@ -266,6 +266,13 @@ class ZakazController {
     }
     async getStatus(req, res){
         const {id, status} = req.body
+        const { authorization } = req.headers;
+        if(!authorization){
+            return res.json({message: 'Вы не авторизованы'});
+        }
+        const token = authorization.slice(7);
+        const { email } = jwt.decode(token);
+        let kurr = await Kur.findOne({where: {email}})
         const zkazstatus = Zakaz.findOne({where:{id:id}})
         if (status === 2){
             let update = {status2:true}
@@ -281,7 +288,37 @@ class ZakazController {
         }
         if (status === 5){
             let update = {status5:true}
+            let up = {orderId: null}
             await Zakaz.update(update, {where:{id:zkazstatus.id}})
+            await Kur.update(up, {where:{orderId: kurr.orderId}})
+            await Kurrerhystory.create({
+                //Куда доставить
+                latitude:zkazstatus.latitude,
+                longitude:zkazstatus.longitude,
+                address:zkazstatus.address,
+                street:zkazstatus.street,
+                //откуда забрать
+                latitudes:zkazstatus.latitudes,
+                longitudes:zkazstatus.longitudes,
+                addresss:zkazstatus.addresss,
+                streets:zkazstatus.streets,
+                ves:zkazstatus.ves,
+                namesgruz:zkazstatus.namesgruz,
+                typedostav:zkazstatus.typedostav,
+                nameuser:zkazstatus.nameuser,
+                poruchenie:zkazstatus.poruchenie,
+                datetime:zkazstatus.datetime,
+                phone:zkazstatus.phone,
+                strahovka:zkazstatus.strahovka,
+                cennost:zkazstatus.cennost,
+                summ:zkazstatus.summ,
+                status1:zkazstatus.status1,
+                status2:zkazstatus.status2,
+                status3:zkazstatus.status3,
+                status4:zkazstatus.status4,
+                status5:zkazstatus.status5,
+                kererId:kurr.id
+            })
         }
         return res.json(true)
     }
