@@ -222,22 +222,22 @@ class ZakazController {
             first_name: map?.first_name,
             //аватар и имя куръера
             avatars: kurr?.avatar,
-            first_names: kurr?.first_name,
+            first_names: kurr.first_name,
             //Расстояние между заказом и курьером
-            latitudess: kurr?.latitude,
-            longitudess: kurr?.longitude,
+            latitudess: kurr.latitude,
+            longitudess: kurr.longitude,
 
             //откуда забрать
-            latitudes: zakazkur?.latitudes,
-            longitudes: zakazkur?.longitudes,
+            latitudes: zakazkur.latitudes,
+            longitudes: zakazkur.longitudes,
             //куда доставить
-            latitude: zakazkur?.latitude,
-            longitude: zakazkur?.longitude,
-            status1:zakazkur?.status1,
-            status2:zakazkur?.status2,
-            status3:zakazkur?.status3,
-            status4:zakazkur?.status4,
-            status5:zakazkur?.status5
+            latitude: zakazkur.latitude,
+            longitude: zakazkur.longitude,
+            status1:zakazkur.status1,
+            status2:zakazkur.status2,
+            status3:zakazkur.status3,
+            status4:zakazkur.status4,
+            status5:zakazkur.status5
         }
         return res.json({items: result})
     }
