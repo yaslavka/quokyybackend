@@ -266,6 +266,7 @@ class ZakazController {
     }
     async getStatus(req, res){
         const {id, status} = req.body
+        console.log(req.body)
         const { authorization } = req.headers;
         if(!authorization){
             return res.json({message: 'Вы не авторизованы'});
