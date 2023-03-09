@@ -174,7 +174,13 @@ class ZakazController {
             return next(ApiError.internal("Заказ найден"));
         }
         const kurr = await Kur.findOne({where:{orderId: zakaz}})
+        if (!kurr) {
+            return next(ApiError.internal("Заказ найден"));
+        }
         const map = await User.findOne({where: {id: user.userId}})
+        if (!map) {
+            return next(ApiError.internal("Заказ найден"));
+        }
         let result = {
             id: zakaz,
             //аватар и имя заказчика
