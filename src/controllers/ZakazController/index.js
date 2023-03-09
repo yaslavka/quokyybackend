@@ -275,7 +275,7 @@ class ZakazController {
         let kurr = await Kur.findOne({where: {email}})
         const zkazstatus = Zakaz.findOne({where:{id:id}})
         if (status === 2){
-            let update = {status2:true}
+            let update = {status2:1}
             await Zakaz.update(update, {where:{status2:zkazstatus.status2}})
         }
         // if (status === 3){
