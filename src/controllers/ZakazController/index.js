@@ -273,10 +273,10 @@ class ZakazController {
         const token = authorization.slice(7);
         const { email } = jwt.decode(token);
         let kurr = await Kur.findOne({where: {email}})
-        const zkazstatus = Zakaz.findOne({where:{id:id}})
+        // const zkazstatus = Zakaz.findOne({where:{id:id}})
         if (status === 2){
-            let update = {status2:1}
-            await Zakaz.update(update, {where:{status2:zkazstatus.status2}})
+            //let update = {status2:1}
+            await Zakaz.update({status2:true}, {where:{id:id}})
         }
         // if (status === 3){
         //     let update = {status3:true}
