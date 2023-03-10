@@ -23,13 +23,15 @@ class ZakazController {
                 return next(ApiError.internal("Такой пользователь не найден"));
             }
             await Zakaz.create({
+                //куда
                 latitude: distance.latitude,
                 longitude: distance.longitude,
-                addresss: distance.address,
+                address: distance.address,
                 streets: distance.name,
+                //откуда
                 latitudes: origin.latitude,
                 longitudes: origin.longitude,
-                address: origin.address,
+                addresss: origin.address,
                 street: origin.name,
                 nameuser: names,
                 phone: phone,
