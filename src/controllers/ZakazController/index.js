@@ -11,6 +11,7 @@ class ZakazController {
     async sozdatZakazy(req, res, next){
         const { authorization } = req.headers;
         const {   origin, distance, names, phone, dtae, comments, cena, namesp, cennost, strahovka, ves, type } = req.body;
+        console.log(req.body)
         if(!authorization){
             return res.json({message: 'Вы не авторизованы'});
         }
